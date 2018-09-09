@@ -33,7 +33,7 @@ const nba = require("nba");
   // const jazz = 1610612762;
   // const wizards = 1610612764;
 
-  // const lebron = 2544;
+  const lebron = 2544;
   // const kd = 201142;
   // const steph = 201939;
   // const harden = 201935;
@@ -272,7 +272,20 @@ class App extends Component {
           'id': 201188
         }
        ],
-       playersInQuestion = [],
+       questions: [
+        {
+           'q': 'Which player averaged the most points per game in the 2017-18 NBA season?',
+           'id': 'pts'
+        },
+        {
+          'q': 'Which player averaged the most rebounds per game in the 2017-18 NBA season?',
+          'id': 'reb'
+        },
+        {
+          'q': 'Which player averaged the most assists per game in the 2017-18 NBA season?',
+          'id': 'ast'
+        }
+       ],
     }
   }
   
@@ -296,28 +309,28 @@ class App extends Component {
     nba.stats.playerInfo({PlayerID: lebron}).then((data) => {
       console.log(data.playerHeadlineStats[0].pts);
     });
-    nba.stats.playerInfo({PlayerID: kd}).then((data) => {
-      console.log(data.playerHeadlineStats[0].pts);
-    });
-    nba.stats.playerInfo({PlayerID: steph}).then((data) => {
-      console.log(data.playerHeadlineStats[0].pts);
-    });
-    nba.stats.playerInfo({PlayerID: harden}).then((data) => {
-      console.log(data.playerHeadlineStats[0].pts);
-    });
+    // nba.stats.playerInfo({PlayerID: kd}).then((data) => {
+    //   console.log(data.playerHeadlineStats[0].pts);
+    // });
+    // nba.stats.playerInfo({PlayerID: steph}).then((data) => {
+    //   console.log(data.playerHeadlineStats[0].pts);
+    // });
+    // nba.stats.playerInfo({PlayerID: harden}).then((data) => {
+    //   console.log(data.playerHeadlineStats[0].pts);
+    // });
 
-    nba.stats.playerInfo({PlayerID: cp3}).then((data) => {
-      console.log(data.playerHeadlineStats[0].ast);
-    });
-    nba.stats.playerInfo({PlayerID: westbrook}).then((data) => {
-      console.log(data.playerHeadlineStats[0].ast);
-    });
-    nba.stats.playerInfo({PlayerID: simmons}).then((data) => {
-      console.log(data.playerHeadlineStats[0].ast);
-    });
-    nba.stats.playerInfo({PlayerID: wall}).then((data) => {
-      console.log(data.playerHeadlineStats[0].ast);
-    });
+    // nba.stats.playerInfo({PlayerID: cp3}).then((data) => {
+    //   console.log(data.playerHeadlineStats[0].ast);
+    // });
+    // nba.stats.playerInfo({PlayerID: westbrook}).then((data) => {
+    //   console.log(data.playerHeadlineStats[0].ast);
+    // });
+    // nba.stats.playerInfo({PlayerID: simmons}).then((data) => {
+    //   console.log(data.playerHeadlineStats[0].ast);
+    // });
+    // nba.stats.playerInfo({PlayerID: wall}).then((data) => {
+    //   console.log(data.playerHeadlineStats[0].ast);
+    // });
 
 
 }
@@ -329,6 +342,7 @@ class App extends Component {
     return (
         <div className="container">
           <Questions playerData={players} />
+          <Form />
         </div>
     );
   }
