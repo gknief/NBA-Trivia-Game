@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./style.css";
-import Questions from "./Questions";
+// import API from "../API";
+// import Questions from "../Questions";
 const nba = require("nba");
   // const hawks = 1610612737;
   // const celtics = 1610612738;
@@ -201,24 +202,39 @@ class App extends Component {
            'q': 'Which player averaged the most points per game in the 2017-18 NBA season?',
            'id': 'pts'
         },
-        {
-          'q': 'Which player averaged the most rebounds per game in the 2017-18 NBA season?',
-          'id': 'reb'
-        },
-        {
-          'q': 'Which player averaged the most assists per game in the 2017-18 NBA season?',
-          'id': 'ast'
-        }
+        // {
+        //   'q': 'Which player averaged the most rebounds per game in the 2017-18 NBA season?',
+        //   'id': 'reb'
+        // },
+        // {
+        //   'q': 'Which player averaged the most assists per game in the 2017-18 NBA season?',
+        //   'id': 'ast'
+        // }
        ],
+       randomPlayer: [],
     }
   }
   
+  componentDidMount = async () => {
+    nba.stats.playerInfo({PlayerID: lebron}).then((data) => {
+      console.log(data.playerHeadlineStats[0].pts);
+    });
+  }
+  randomizePlayers = () => {
+    this.setState({ 
+      randomPlayer: this.state.players[Math.floor(Math.random() * 
+      this.state.players.length)]
+    })
+  }
+
 
   render() {
     return (
         <div className="container">
-          <Questions playerData={players} />
-          <API />
+        <button onClick={this.randomizePlayers}>Start Game</button>
+        <h1>{this.state.randomPlayer}</h1>
+          {/* <Questions playerData={this.state.players} />
+          <API /> */}
         </div>
     );
   }

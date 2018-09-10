@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+// import React, { Component } from 'react';
 
-class API extends Component {
-    constructor(props) {
-        super(props);
+// class API extends Component {
+//     constructor(props) {
+//         super(props);
 
-        this.initialState = {
-            name: '',
-            id: ''
-        };
+//         this.initialState = {
+//             name: '',
+//             id: ''
+//         };
 
-        this.state = this.initialState;
-    }
+//         this.state = this.initialState;
+//     }
 
     // const curry = nba.findPlayer('Stephen Curry');
   // const lebron = nba.findPlayer('LeBron James');
@@ -26,10 +26,20 @@ class API extends Component {
   // nba.stats.playerProfile({PlayerID: kd}).then((data) => {
   //   console.log(data);
   // });
-  componentDidMount = async () => {
-    nba.stats.playerInfo({PlayerID: lebron}).then((data) => {
-      console.log(data.playerHeadlineStats[0].pts);
-    });
+
+
+
+
+
+//   componentDidMount = async () => {
+//     nba.stats.playerInfo({PlayerID: lebron}).then((data) => {
+//       console.log(data.playerHeadlineStats[0].pts);
+//     });
+
+
+
+
+
     // nba.stats.playerInfo({PlayerID: kd}).then((data) => {
     //   console.log(data.playerHeadlineStats[0].pts);
     // });
@@ -54,8 +64,8 @@ class API extends Component {
     // });
 
 
-    }
+    // }
 
-}
+// }
 
-export default API;
+// export default API;
