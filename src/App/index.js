@@ -227,14 +227,14 @@ class App extends Component {
     this.setState({ 
       randomPlayer1ID: this.state.players[Math.floor(Math.random() * 
       this.state.players.length)].id
-      players.splice(randomPlayer1ID, 1)
+      // players.splice(randomPlayer1ID, 1)
     }, () => {
       nba.stats.playerInfo({PlayerID: this.state.randomPlayer1ID}).then((data) => {
         console.log(data.playerHeadlineStats[0].pts);
         console.log(data.commonPlayerInfo[0].displayFirstLast);
         this.setState({
           randomPlayer1: data.commonPlayerInfo[0]
-          players.splice(randomPlayer1, 1)
+          // players.splice(randomPlayer1, 1)
         });
         // this.state.players.splice(this.state.randomPlayer1, this.state.randomPlayer1ID, 1)
       });
@@ -245,14 +245,14 @@ class App extends Component {
     this.setState({ 
       randomPlayer2ID: this.state.players[Math.floor(Math.random() * 
       this.state.players.length)].id
-      players.splice(randomPlayer2ID, 1)
+      // players.splice(randomPlayer2ID, 1)
     }, () => {
       nba.stats.playerInfo({PlayerID: this.state.randomPlayer2ID}).then((data) => {
         console.log(data.playerHeadlineStats[0].pts);
         console.log(data.commonPlayerInfo[0].displayFirstLast);
         this.setState({
           randomPlayer2: data.commonPlayerInfo[0]
-          players.splice(randomPlayer2, 1)
+          // players.splice(randomPlayer2, 1)
         });
         // this.state.players.splice(this.state.randomPlayer2, this.state.randomPlayer2ID, 1)
       });
@@ -275,9 +275,10 @@ class App extends Component {
   render() {
     return (
         <div className="container">
+        <h1>NBA Trivia</h1>
+        <h2>{this.state.randomPlayer1.displayFirstLast}</h2>
+        <h2>{this.state.randomPlayer2.displayFirstLast}</h2>
         <button onClick={this.randomizePlayers}>Start Game</button>
-        <h1>{this.state.randomPlayer1.displayFirstLast}</h1>
-        <h1>{this.state.randomPlayer2.displayFirstLast}</h1>
           {/* <Questions playerData={this.state.players} />
           <API /> */}
         </div>
