@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import API from './API';
 
 class Questions extends Component {
     render() {
