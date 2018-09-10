@@ -34,7 +34,7 @@ const nba = require("nba");
   // const jazz = 1610612762;
   // const wizards = 1610612764;
 
-  const lebron = 2544;
+  // const lebron = 2544;
  
 
 
@@ -211,20 +211,64 @@ class App extends Component {
         //   'id': 'ast'
         // }
        ],
-       randomPlayer: [],
+       randomPlayer1: {},
+       randomPlayer1ID: null,
+       randomPlayer2: {},
+       randomPlayer2ID: null,
     }
   }
   
-  componentDidMount = async () => {
-    nba.stats.playerInfo({PlayerID: lebron}).then((data) => {
-      console.log(data.playerHeadlineStats[0].pts);
-    });
-  }
-  randomizePlayers = () => {
+  // componentDidMount = async () => {
+  //   nba.stats.playerInfo({PlayerID: this.state.randomPlayer}).then((data) => {
+  //     console.log(data);
+  //   });
+  // }
+  randomPlayer1 = () => {
     this.setState({ 
-      randomPlayer: this.state.players[Math.floor(Math.random() * 
-      this.state.players.length)]
+      randomPlayer1ID: this.state.players[Math.floor(Math.random() * 
+      this.state.players.length)].id
+      players.splice(randomPlayer1ID, 1)
+    }, () => {
+      nba.stats.playerInfo({PlayerID: this.state.randomPlayer1ID}).then((data) => {
+        console.log(data.playerHeadlineStats[0].pts);
+        console.log(data.commonPlayerInfo[0].displayFirstLast);
+        this.setState({
+          randomPlayer1: data.commonPlayerInfo[0]
+          players.splice(randomPlayer1, 1)
+        });
+        // this.state.players.splice(this.state.randomPlayer1, this.state.randomPlayer1ID, 1)
+      });
     })
+  }
+
+  randomPlayer2 = () => {
+    this.setState({ 
+      randomPlayer2ID: this.state.players[Math.floor(Math.random() * 
+      this.state.players.length)].id
+      players.splice(randomPlayer2ID, 1)
+    }, () => {
+      nba.stats.playerInfo({PlayerID: this.state.randomPlayer2ID}).then((data) => {
+        console.log(data.playerHeadlineStats[0].pts);
+        console.log(data.commonPlayerInfo[0].displayFirstLast);
+        this.setState({
+          randomPlayer2: data.commonPlayerInfo[0]
+          players.splice(randomPlayer2, 1)
+        });
+        // this.state.players.splice(this.state.randomPlayer2, this.state.randomPlayer2ID, 1)
+      });
+    })
+  }
+
+  randomizePlayers = () => {
+    // if(this.state.randomPlayer1ID !== this.state.randomPlayer2ID) {
+    this.randomPlayer1();
+    this.randomPlayer2();
+    // } else if (this.state.randomPlayer1ID === this.state.randomPlayer2ID) {
+    //   this.setState({
+    //     randomPlayer2ID: this.state.players[Math.floor(Math.random() * 
+    //     this.state.players.length) + 1 ].id
+    //     });
+    // }
   }
 
 
@@ -232,7 +276,8 @@ class App extends Component {
     return (
         <div className="container">
         <button onClick={this.randomizePlayers}>Start Game</button>
-        <h1>{this.state.randomPlayer}</h1>
+        <h1>{this.state.randomPlayer1.displayFirstLast}</h1>
+        <h1>{this.state.randomPlayer2.displayFirstLast}</h1>
           {/* <Questions playerData={this.state.players} />
           <API /> */}
         </div>

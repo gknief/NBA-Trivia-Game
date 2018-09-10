@@ -1,6 +1,6 @@
 // import React, { Component } from 'react';
 
-// class API extends Component {
+// class Player extends Component {
 //     constructor(props) {
 //         super(props);
 
@@ -11,6 +11,20 @@
 
 //         this.state = this.initialState;
 //     }
+
+
+    // render() {
+    //     return (
+    //         <div>
+    //         {this.props.players.map(()=> {
+    //             return <Player player={player} key={player.id}/>
+    //         })}
+    //         </div>
+    //     );
+    // }
+
+
+    
 
     // const curry = nba.findPlayer('Stephen Curry');
   // const lebron = nba.findPlayer('LeBron James');
