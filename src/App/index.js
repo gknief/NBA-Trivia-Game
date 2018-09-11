@@ -177,7 +177,7 @@ class App extends Component {
   //     console.log(data);
   //   });
   // }
-  randomPlayer1 = () => {
+  randomizePlayer1 = () => {
     this.setState({ 
       randomPlayer1ID: this.state.players[Math.floor(Math.random() * 
       this.state.players.length)].id
@@ -186,14 +186,14 @@ class App extends Component {
         console.log(data.playerHeadlineStats[0].pts);
         console.log(data.commonPlayerInfo[0].displayFirstLast);
         this.setState({
-          randomPlayer1: data.commonPlayerInfo[0],
+          randomPlayer1: data.commonPlayerInfo[0].displayFirstLast,
           randomPlayer1Stats: data.playerHeadlineStats[0].pts
         });
       });
     })
   }
 
-  randomPlayer2 = () => {
+  randomizePlayer2 = () => {
     this.setState({ 
       randomPlayer2ID: this.state.players[Math.floor(Math.random() * 
       this.state.players.length)].id
@@ -202,7 +202,7 @@ class App extends Component {
         console.log(data.playerHeadlineStats[0].pts);
         console.log(data.commonPlayerInfo[0].displayFirstLast);
         this.setState({
-          randomPlayer2: data.commonPlayerInfo[0],
+          randomPlayer2: data.commonPlayerInfo[0].displayFirstLast,
           randomPlayer2Stats: data.playerHeadlineStats[0].pts
         });
       });
@@ -210,8 +210,8 @@ class App extends Component {
   }
 
   randomizePlayers = () => {
-    this.randomPlayer1();
-    this.randomPlayer2();
+    this.randomizePlayer1();
+    this.randomizePlayer2();
   }
 
   checkAnswer = (e) => {
@@ -241,8 +241,8 @@ class App extends Component {
   render() {
     return (
         <div className="container">
-          <HeaderContent randomizePlayers={this.props.randomizePlayers}/>
-          <PlayerContent checkAnswer={this.props.checkAnswer}/>
+          <HeaderContent randomizePlayers={this.randomizePlayers}/>
+          <PlayerContent checkAnswer={this.checkAnswer}/>
         </div>
     );
   }
