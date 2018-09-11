@@ -1,5 +1,29 @@
 body {
     background-image: url('https://wallpaper-house.com/data/out/9/wallpaper2you_296628.jpg');
     background-size: cover;
-    
+    color: white;
+    text-align: center;
+}
+
+.title {
+    font-size: 40px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: magenta;
+}
+
+.playerOne {
+    display: inline;
+    padding-right: 150px;
+}
+
+.playerTwo {
+    display: inline;
+    padding-left: 150px;
 }

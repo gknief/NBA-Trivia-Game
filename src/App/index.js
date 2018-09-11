@@ -1,43 +1,10 @@
 import React, { Component } from "react";
 import "./style.css";
-// import API from "../API";
-// import Questions from "../Questions";
+import HeaderContent from "../HeaderContent";
+import PlayerContent from "../PlayerContent";
+
 const nba = require("nba");
-  // const hawks = 1610612737;
-  // const celtics = 1610612738;
-  // const nets = 1610612751;
-  // const hornets = 1610612766;
-  // const bulls = 1610612741;
-  // const cavs = 1610612739;
-  // const mavs = 1610612742;
-  // const nuggets = 1610612743;
-  // const pistons = 1610612765;
-  // const warriors = 1610612744;
-  // const rockets = 1610612745;
-  // const pacers = 1610612754;
-  // const clippers = 1610612746;
-  // const lakers = 1610612747;
-  // const grizzlies = 1610612763;
-  // const heat = 1610612748;
-  // const bucks = 1610612749;
-  // const timberwolves = 1610612750;
-  // const pelicans = 1610612740;
-  // const knicks = 1610612752;
-  // const thunder = 1610612760;
-  // const magic = 1610612753;
-  // const sixers = 1610612755;
-  // const suns = 1610612756;
-  // const blazers = 1610612757;
-  // const kings = 1610612758;
-  // const spurs = 1610612759;
-  // const raptors = 1610612761;
-  // const jazz = 1610612762;
-  // const wizards = 1610612764;
-
-  // const lebron = 2544;
- 
-
-
+  
 class App extends Component {
   constructor(props) {
     super(props)
@@ -197,22 +164,9 @@ class App extends Component {
           'id': 201188
         }
        ],
-       questions: [
-        {
-           'q': 'Which player averaged the most points per game in the 2017-18 NBA season?',
-           'id': 'pts'
-        },
-        // {
-        //   'q': 'Which player averaged the most rebounds per game in the 2017-18 NBA season?',
-        //   'id': 'reb'
-        // },
-        // {
-        //   'q': 'Which player averaged the most assists per game in the 2017-18 NBA season?',
-        //   'id': 'ast'
-        // }
-       ],
        randomPlayer1: {},
        randomPlayer1ID: null,
+       
        randomPlayer2: {},
        randomPlayer2ID: null,
     }
@@ -227,16 +181,14 @@ class App extends Component {
     this.setState({ 
       randomPlayer1ID: this.state.players[Math.floor(Math.random() * 
       this.state.players.length)].id
-      // players.splice(randomPlayer1ID, 1)
     }, () => {
       nba.stats.playerInfo({PlayerID: this.state.randomPlayer1ID}).then((data) => {
         console.log(data.playerHeadlineStats[0].pts);
         console.log(data.commonPlayerInfo[0].displayFirstLast);
         this.setState({
-          randomPlayer1: data.commonPlayerInfo[0]
-          // players.splice(randomPlayer1, 1)
+          randomPlayer1: data.commonPlayerInfo[0],
+          randomPlayer1Stats: data.playerHeadlineStats[0].pts
         });
-        // this.state.players.splice(this.state.randomPlayer1, this.state.randomPlayer1ID, 1)
       });
     })
   }
@@ -245,42 +197,52 @@ class App extends Component {
     this.setState({ 
       randomPlayer2ID: this.state.players[Math.floor(Math.random() * 
       this.state.players.length)].id
-      // players.splice(randomPlayer2ID, 1)
     }, () => {
       nba.stats.playerInfo({PlayerID: this.state.randomPlayer2ID}).then((data) => {
         console.log(data.playerHeadlineStats[0].pts);
         console.log(data.commonPlayerInfo[0].displayFirstLast);
         this.setState({
-          randomPlayer2: data.commonPlayerInfo[0]
-          // players.splice(randomPlayer2, 1)
+          randomPlayer2: data.commonPlayerInfo[0],
+          randomPlayer2Stats: data.playerHeadlineStats[0].pts
         });
-        // this.state.players.splice(this.state.randomPlayer2, this.state.randomPlayer2ID, 1)
       });
     })
   }
 
   randomizePlayers = () => {
-    // if(this.state.randomPlayer1ID !== this.state.randomPlayer2ID) {
     this.randomPlayer1();
     this.randomPlayer2();
-    // } else if (this.state.randomPlayer1ID === this.state.randomPlayer2ID) {
-    //   this.setState({
-    //     randomPlayer2ID: this.state.players[Math.floor(Math.random() * 
-    //     this.state.players.length) + 1 ].id
-    //     });
-    // }
   }
 
-
+  checkAnswer = (e) => {
+    const selectedPlayer = e.target.innerText;
+    const { randomPlayer1, randomPlayer2, randomPlayer1Stats, randomPlayer2Stats } = this.state;
+    console.log('player1 selected', selectedPlayer) 
+    if(selectedPlayer === randomPlayer1.displayFirstLast) {
+        if(randomPlayer1Stats > randomPlayer2Stats) {
+           console.log('correct');
+           e.target.style.color = 'green';
+        } else if(randomPlayer1Stats < randomPlayer2Stats) {
+          console.log('incorrect');
+          e.target.style.color = 'red';
+      }
+    }
+      if(selectedPlayer === randomPlayer2.displayFirstLast) {
+        if(randomPlayer2Stats > randomPlayer1Stats) {
+           console.log('correct');
+           e.target.style.color = 'green';
+        } else if(randomPlayer2Stats < randomPlayer1Stats) {
+          console.log('incorrect');
+          e.target.style.color = 'red';
+      }
+    }
+    setTimeout(this.randomizePlayers, 2000);
+  }
   render() {
     return (
         <div className="container">
-        <h1>NBA Trivia</h1>
-        <h2>{this.state.randomPlayer1.displayFirstLast}</h2>
-        <h2>{this.state.randomPlayer2.displayFirstLast}</h2>
-        <button onClick={this.randomizePlayers}>Start Game</button>
-          {/* <Questions playerData={this.state.players} />
-          <API /> */}
+          <HeaderContent randomizePlayers={this.props.randomizePlayers}/>
+          <PlayerContent checkAnswer={this.props.checkAnswer}/>
         </div>
     );
   }

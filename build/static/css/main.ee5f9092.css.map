@@ -1,0 +1,1 @@
+{"version":3,"sources":["App/style.css"],"names":[],"mappings":"AAAA,KACI,wFACA,qBAAuB","file":"static/css/main.ee5f9092.css","sourcesContent":["body {\n    background-image: url('https://wallpaper-house.com/data/out/9/wallpaper2you_296628.jpg');\n    background-size: cover;\n    \n}\n\n\n// WEBPACK FOOTER //\n// ./src/App/style.css"],"sourceRoot":""}
