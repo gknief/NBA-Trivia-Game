@@ -172,11 +172,7 @@ class App extends Component {
     }
   }
   
-  // componentDidMount = async () => {
-  //   nba.stats.playerInfo({PlayerID: this.state.randomPlayer}).then((data) => {
-  //     console.log(data);
-  //   });
-  // }
+
   randomizePlayer1 = () => {
     this.setState({ 
       randomPlayer1ID: this.state.players[Math.floor(Math.random() * 
