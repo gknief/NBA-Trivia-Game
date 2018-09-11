@@ -164,10 +164,10 @@ class App extends Component {
           'id': 201188
         }
        ],
-       randomPlayer1: {},
+       randomPlayer1: '',
        randomPlayer1ID: null,
        
-       randomPlayer2: {},
+       randomPlayer2: '',
        randomPlayer2ID: null,
     }
   }
@@ -218,31 +218,32 @@ class App extends Component {
     const selectedPlayer = e.target.innerText;
     const { randomPlayer1, randomPlayer2, randomPlayer1Stats, randomPlayer2Stats } = this.state;
     console.log('player1 selected', selectedPlayer) 
-    if(selectedPlayer === randomPlayer1.displayFirstLast) {
+    console.log(randomPlayer1Stats, randomPlayer2Stats);
+    if(selectedPlayer === randomPlayer1) {
         if(randomPlayer1Stats > randomPlayer2Stats) {
            console.log('correct');
-           e.target.style.color = 'green';
-        } else if(randomPlayer1Stats < randomPlayer2Stats) {
-          console.log('incorrect');
-          e.target.style.color = 'red';
-      }
+           setTimeout(e.target.style.color = 'green', 50)
+        } else {
+           console.log('incorrect');
+           setTimeout(e.target.style.color = 'red', 50)
+        }
     }
-      if(selectedPlayer === randomPlayer2.displayFirstLast) {
+      if(selectedPlayer === randomPlayer2) {
         if(randomPlayer2Stats > randomPlayer1Stats) {
            console.log('correct');
-           e.target.style.color = 'green';
-        } else if(randomPlayer2Stats < randomPlayer1Stats) {
-          console.log('incorrect');
-          e.target.style.color = 'red';
+           setTimeout(e.target.style.color = 'green', 50)
+        } else  {
+           console.log('incorrect');
+           setTimeout(e.target.style.color = 'red', 50)
       }
     }
-    setTimeout(this.randomizePlayers, 2000);
+    setTimeout(this.randomizePlayers, 200);
   }
   render() {
     return (
         <div className="container">
           <HeaderContent randomizePlayers={this.randomizePlayers}/>
-          <PlayerContent checkAnswer={this.checkAnswer}/>
+          <PlayerContent checkAnswer={this.checkAnswer} randomPlayer1={this.state.randomPlayer1} randomPlayer2={this.state.randomPlayer2}/>
         </div>
     );
   }

@@ -25,11 +25,13 @@ a:hover {
 .playerOne {
     display: inline;
     padding-right: 150px;
+    font-size: 30px;
 }
 
 .playerTwo {
     display: inline;
     padding-left: 150px;
+    font-size: 30px;
 }
 
 h2 {
