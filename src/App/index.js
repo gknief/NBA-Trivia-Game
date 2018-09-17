@@ -4,6 +4,16 @@ import HeaderContent from "../HeaderContent";
 import PlayerContent from "../PlayerContent";
 
 const nba = require("nba");
+
+const style1 = {
+  color: 'rgb(0, 255, 0)'
+  // color: 'green'
+}
+
+const style2 = {
+  color: 'rgb(255, 0, 0)'
+  // color: 'red'
+}
   
 class App extends Component {
   constructor(props) {
@@ -169,18 +179,17 @@ class App extends Component {
        
        randomPlayer2: '',
        randomPlayer2ID: null,
+       red: 0,
+       green: 0
     }
   }
   
-
   randomizePlayer1 = () => {
     this.setState({ 
       randomPlayer1ID: this.state.players[Math.floor(Math.random() * 
       this.state.players.length)].id
     }, () => {
       nba.stats.playerInfo({PlayerID: this.state.randomPlayer1ID}).then((data) => {
-        console.log(data.playerHeadlineStats[0].pts);
-        console.log(data.commonPlayerInfo[0].displayFirstLast);
         this.setState({
           randomPlayer1: data.commonPlayerInfo[0].displayFirstLast,
           randomPlayer1Stats: data.playerHeadlineStats[0].pts
@@ -195,8 +204,6 @@ class App extends Component {
       this.state.players.length)].id
     }, () => {
       nba.stats.playerInfo({PlayerID: this.state.randomPlayer2ID}).then((data) => {
-        console.log(data.playerHeadlineStats[0].pts);
-        console.log(data.commonPlayerInfo[0].displayFirstLast);
         this.setState({
           randomPlayer2: data.commonPlayerInfo[0].displayFirstLast,
           randomPlayer2Stats: data.playerHeadlineStats[0].pts
@@ -213,33 +220,103 @@ class App extends Component {
   checkAnswer = (e) => {
     const selectedPlayer = e.target.innerText;
     const { randomPlayer1, randomPlayer2, randomPlayer1Stats, randomPlayer2Stats } = this.state;
-    console.log('player1 selected', selectedPlayer) 
-    console.log(randomPlayer1Stats, randomPlayer2Stats);
     if(selectedPlayer === randomPlayer1) {
         if(randomPlayer1Stats > randomPlayer2Stats) {
-           console.log('correct');
-           setTimeout(e.target.style.color = 'green', 50)
+          // return (
+          //   <div>
+          //   <a className = "playerOne" href="#" onClick={this.randomizePlayers} style={style1}>{this.randomPlayer1}</a>
+          //   <a className = "playerTwo" href="#" onClick={this.randomizePlayers}>{this.randomPlayer2}</a>
+          //   </div>
+          //   )
+          // this.setState({
+          //   green: 100,
+          // });
+          setTimeout(this.setState({
+            randomPlayer1: 'Correct',
+            randomPlayer2: 'Incorrect',
+          }), 450)
+          //  {this.turnGreen}
+          //  setTimeout(e.target.style.color = 'green', 50)
         } else {
-           console.log('incorrect');
-           setTimeout(e.target.style.color = 'red', 50)
+          // return (
+          // <div>
+          // <a className = "playerOne" href="#" onClick={this.randomizePlayers} style={style2}>{this.randomPlayer1}</a>
+          // <a className = "playerTwo" href="#" onClick={this.randomizePlayers}>{this.randomPlayer2}</a>
+          // </div>
+          // )
+          // this.setState({
+          //   red: 100,
+          // });
+          setTimeout(this.setState({
+            randomPlayer1: 'Incorrect',
+            randomPlayer2: 'Correct',
+          }), 450)
+          // {this.turnRed}
+          //  setTimeout(e.target.style.color = 'red', 50)
         }
     }
       if(selectedPlayer === randomPlayer2) {
         if(randomPlayer2Stats > randomPlayer1Stats) {
-           console.log('correct');
-           setTimeout(e.target.style.color = 'green', 50)
-        } else  {
-           console.log('incorrect');
-           setTimeout(e.target.style.color = 'red', 50)
+          // return (
+          //   <div>
+          //   <a className = "playerOne" href="#" onClick={this.randomizePlayers}>{this.randomPlayer1}</a>
+          //   <a className = "playerTwo" href="#" onClick={this.randomizePlayers} style={style1}>{this.randomPlayer2}</a>
+          //   </div>
+          // )
+          // this.setState({
+          //   green: 100,
+          // });
+          setTimeout(this.setState({
+            randomPlayer1: 'Incorrect',
+            randomPlayer2: 'Correct',
+          }), 450)
+          //  {this.turnGreen}
+          //  setTimeout(e.target.style.color = 'green', 50)
+        } else {
+          // return (
+          //   <div>
+          //   <a className = "playerOne" href="#" onClick={this.randomizePlayers}>{this.randomPlayer1}</a>
+          //   <a className = "playerTwo" href="#" onClick={this.randomizePlayers} style={style2}>{this.randomPlayer2}</a>
+          //   </div>
+          // )
+          // this.setState({
+          //   red: 100,
+          // });
+          setTimeout(this.setState({
+            randomPlayer1: 'Correct',
+            randomPlayer2: 'Incorrect',
+          }), 450)
+          //  {this.turnRed}
+          //  setTimeout(e.target.style.color = 'red', 50)
       }
     }
-    setTimeout(this.randomizePlayers, 200);
+    setTimeout(this.randomizePlayers, 500);
   }
+
+  
+  turnRed = (red) => {
+    this.setState((prevState) => 
+    {
+      return {
+        [red]: prevState[red] + 255,
+      }
+    });
+  }
+  
+  turnGreen = (green) => {
+    this.setState((prevState) => 
+    {
+      return {
+        [green]: prevState[green] + 255,
+      }
+    });
+  }
+
   render() {
     return (
         <div className="container">
           <HeaderContent randomizePlayers={this.randomizePlayers}/>
-          <PlayerContent checkAnswer={this.checkAnswer} randomPlayer1={this.state.randomPlayer1} randomPlayer2={this.state.randomPlayer2}/>
+          <PlayerContent checkAnswer={this.checkAnswer} randomPlayer1={this.state.randomPlayer1} randomPlayer2={this.state.randomPlayer2} turnRed={this.turnRed} turnGreen={this.turnGreen}/>
         </div>
     );
   }
